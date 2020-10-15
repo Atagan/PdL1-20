@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author luis
+ * @author Laura
  */
 public class ProcesadoresDeLenguaje {
 

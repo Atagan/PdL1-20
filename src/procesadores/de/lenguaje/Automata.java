@@ -9,7 +9,7 @@ import java.util.*;
 
 /**
  *
- * @author luis
+ * @author Laura
  */
 public class Automata {
 

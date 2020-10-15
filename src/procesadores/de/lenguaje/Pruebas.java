@@ -6,10 +6,11 @@
 package procesadores.de.lenguaje;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 /**
  *
- * @author luis
+ * @author laura
  */
 public class Pruebas {
 
@@ -20,8 +21,16 @@ public class Pruebas {
         mq.iniciar();
         
         System.out.println(mq.getListaEstados());
-        System.out.println(mq.getMatriz().get(1).keySet());//Retorna todas los caracteres que un determinado estado acepta
+        System.out.println(mq.getMatriz().get(1).get('a'));//Retorna todas los caracteres que un determinado estado acepta
         //Sintaxis: mq.getMatriz().get(_estado_).keySet()
-        System.out.println(mq.getMatriz().get(1).get('a'));
+        
+        
+        /*
+        Set a =mq.getMatriz().get(4).keySet();
+        char[] aux=mq.setToArray(a);
+        for (int i = 0; i < aux.length; i++) {
+            System.out.print(aux[i]+" ");
+        }
+        */
     }
 }

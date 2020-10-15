@@ -7,10 +7,11 @@ package procesadores.de.lenguaje;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 /**
  *
- * @author luis
+ * @author Laura
  */
 public class MaquinaDeEstados {
 
@@ -179,267 +180,38 @@ public class MaquinaDeEstados {
         return valida;
     }
 
-    public String generarCadena() { 
-        /*Sustituir por algo en plan: 
-        array=automata.getMatriz().get(estado).keySet().toArray();
-        siguienteChar=array[(int)Math.random*array.length]
-        */
-        int siguienteEstado = 0;
-        Character siguienteChar = ' ';
-        String cad = "";
+    public String generarCadena() {
+        String a = "";
+        int estado = automata.getEstadoInicial();
+        boolean acabada = false;
+        char[] posibilidades;
+        char siguienteChar;
+        while (!acabada) {
+            if (automata.isFinal(estado) && (Math.random() > 0.9)) {
+                acabada = true;
+            } else {
+                Set<Character> aux = automata.getMatriz().get(estado).keySet();
+                posibilidades = new char[aux.size()];
+                posibilidades = setToArray(aux);
 
-        while (cad.length() < 100) {
-            //System.out.println(cad);
-            int aux;
-
-            switch (siguienteEstado) {
-                case 0:
-                    aux = (int) (Math.random() * 10);
-                    switch (aux) {
-                        case 0:
-                            siguienteChar = '0';
-                            siguienteEstado = 1;
-                            break;
-                        case 1:
-                            siguienteChar = '1';
-                            siguienteEstado = 1;
-                            break;
-                        case 2:
-                            siguienteChar = '2';
-                            siguienteEstado = 1;
-                            break;
-                        case 3:
-                            siguienteChar = '3';
-                            siguienteEstado = 1;
-                            break;
-                        case 4:
-                            siguienteChar = '4';
-                            siguienteEstado = 1;
-                            break;
-                        case 5:
-                            siguienteChar = '5';
-                            siguienteEstado = 1;
-                            break;
-                        case 6:
-                            siguienteChar = '6';
-                            siguienteEstado = 1;
-                            break;
-                        case 7:
-                            siguienteChar = '7';
-                            siguienteEstado = 1;
-                            break;
-                        case 8:
-                            siguienteChar = '8';
-                            siguienteEstado = 1;
-                            break;
-                        case 9:
-                            siguienteChar = '9';
-                            siguienteEstado = 1;
-                            break;
-                        case 10:
-                            siguienteChar = 'a';
-                            siguienteEstado = 2;
-                            break;
-                        case 11:
-                            siguienteChar = 'b';
-                            siguienteEstado = 2;
-                            break;
-                        case 12:
-                            siguienteChar = 'c';
-                            siguienteEstado = 2;
-                            break;
-                    }
-
-                    break;
-
-                case 1:
-                    aux = (int) (Math.random() * 13);
-                    switch (aux) {
-                        case 0:
-                            siguienteChar = '0';
-                            siguienteEstado = 1;
-                            break;
-                        case 1:
-                            siguienteChar = '1';
-                            siguienteEstado = 1;
-                            break;
-                        case 2:
-                            siguienteChar = '2';
-                            siguienteEstado = 1;
-                            break;
-                        case 3:
-                            siguienteChar = '3';
-                            siguienteEstado = 1;
-                            break;
-                        case 4:
-                            siguienteChar = '4';
-                            siguienteEstado = 1;
-                            break;
-                        case 5:
-                            siguienteChar = '5';
-                            siguienteEstado = 1;
-                            break;
-                        case 6:
-                            siguienteChar = '6';
-                            siguienteEstado = 1;
-                            break;
-                        case 7:
-                            siguienteChar = '7';
-                            siguienteEstado = 1;
-                            break;
-                        case 8:
-                            siguienteChar = '8';
-                            siguienteEstado = 1;
-                            break;
-                        case 9:
-                            siguienteChar = '9';
-                            siguienteEstado = 1;
-                            break;
-                        case 10:
-                            siguienteChar = 'a';
-                            siguienteEstado = 2;
-                            break;
-                        case 11:
-                            siguienteChar = 'b';
-                            siguienteEstado = 2;
-                            break;
-                        case 12:
-                            siguienteChar = 'c';
-                            siguienteEstado = 2;
-                            break;
-                    }
-                    break;
-                case 2:
-                    aux = (int) (Math.random() * 4);
-                    switch (aux) {
-                        case 0:
-                            siguienteChar = 'a';
-                            siguienteEstado = 2;
-                            break;
-                        case 1:
-                            siguienteChar = 'b';
-                            siguienteEstado = 2;
-                            break;
-                        case 2:
-                            siguienteChar = 'c';
-                            siguienteEstado = 2;
-                            break;
-                        case 3:
-                            siguienteChar = 'v';
-                            siguienteEstado = 3;
-                            break;
-                    }
-                    break;
-                case 3:
-                    aux = (int) (Math.random() * 13);
-                    switch (aux) {
-                        case 0:
-                            siguienteChar = '0';
-                            siguienteEstado = 4;
-                            break;
-                        case 1:
-                            siguienteChar = '1';
-                            siguienteEstado = 4;
-                            break;
-                        case 2:
-                            siguienteChar = '2';
-                            siguienteEstado = 4;
-                            break;
-                        case 3:
-                            siguienteChar = '3';
-                            siguienteEstado = 4;
-                            break;
-                        case 4:
-                            siguienteChar = '4';
-                            siguienteEstado = 4;
-                            break;
-                        case 5:
-                            siguienteChar = '5';
-                            siguienteEstado = 4;
-                            break;
-                        case 6:
-                            siguienteChar = '6';
-                            siguienteEstado = 4;
-                            break;
-                        case 7:
-                            siguienteChar = '7';
-                            siguienteEstado = 4;
-                            break;
-                        case 8:
-                            siguienteChar = '8';
-                            siguienteEstado = 4;
-                            break;
-                        case 9:
-                            siguienteChar = '9';
-                            siguienteEstado = 4;
-                            break;
-
-                    }
-                case 4:
-                    aux = (int) (Math.random() * 11);
-                    switch (aux) {
-                        case 0:
-                            siguienteChar = '0';
-                            siguienteEstado = 4;
-                            break;
-                        case 1:
-                            siguienteChar = '1';
-                            siguienteEstado = 4;
-                            break;
-                        case 2:
-                            siguienteChar = '2';
-                            siguienteEstado = 4;
-                            break;
-                        case 3:
-                            siguienteChar = '3';
-                            siguienteEstado = 4;
-                            break;
-                        case 4:
-                            siguienteChar = '4';
-                            siguienteEstado = 4;
-                            break;
-                        case 5:
-                            siguienteChar = '5';
-                            siguienteEstado = 4;
-                            break;
-                        case 6:
-                            siguienteChar = '6';
-                            siguienteEstado = 4;
-                            break;
-                        case 7:
-                            siguienteChar = '7';
-                            siguienteEstado = 4;
-                            break;
-                        case 8:
-                            siguienteChar = '8';
-                            siguienteEstado = 4;
-                            break;
-                        case 9:
-                            siguienteChar = '9';
-                            siguienteEstado = 4;
-                            break;
-                        case 10:
-                            siguienteChar = ' ';
-                            siguienteEstado = Integer.MAX_VALUE;
-                            break;
-                    }
-                    break;
-            }
-            try {
-                if (siguienteEstado == Integer.MAX_VALUE) {
-                    cad = cad.concat(String.valueOf(siguienteChar));
-                    return cad;
-                }
-                if ((siguienteEstado != Integer.MAX_VALUE)) {
-                    //System.out.println(siguienteChar);
-                    //System.out.println("Añado el caracter: " + siguienteChar
-                    //        + " a la cadena: " + cad);
-                    cad = cad.concat(String.valueOf(siguienteChar));
-                }
-            } catch (Exception e) {
-                //System.out.println(e.toString());
+                siguienteChar = posibilidades[(int) (Math.random() * posibilidades.length)];
+                estado = automata.getMatriz().get(estado).get(siguienteChar);
+                a = a.concat(String.valueOf(siguienteChar));
+                //System.out.println(a);
             }
         }
-        return cad;
+
+        return a;
     }
+
+    public char[] setToArray(Set a) {
+        int i = 0;
+        char[] array = new char[a.size()];
+        for (var x : a) {
+            array[i++] = (char) x;
+        }
+        return array;
+    }
+
+   
 }
