@@ -8,6 +8,14 @@ package procesadores.de.lenguaje;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
+import java.io.File;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.ParserConfigurationException;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Node;
+import org.w3c.dom.Element;
 
 /**
  *
@@ -28,108 +36,54 @@ public class MaquinaDeEstados {
     }
 
     public void setAll() {
-        automata.cargarAlfabeto('a');
-        automata.cargarAlfabeto('b');
-        automata.cargarAlfabeto('c');
-        automata.cargarAlfabeto('d');
-        automata.cargarAlfabeto('e');
-        automata.cargarAlfabeto('f');
-        automata.cargarAlfabeto('g');
-        automata.cargarAlfabeto('h');
-        automata.cargarAlfabeto('i');
-        automata.cargarAlfabeto('j');
-        automata.cargarAlfabeto('k');
-        automata.cargarAlfabeto('l');
-        automata.cargarAlfabeto('m');
-        automata.cargarAlfabeto('n');
-        automata.cargarAlfabeto('o');
-        automata.cargarAlfabeto('p');
-        automata.cargarAlfabeto('q');
-        automata.cargarAlfabeto('r');
-        automata.cargarAlfabeto('s');
-        automata.cargarAlfabeto('t');
-        automata.cargarAlfabeto('u');
-        automata.cargarAlfabeto('v');
-        automata.cargarAlfabeto('x');
-        automata.cargarAlfabeto('y');
-        automata.cargarAlfabeto('z');
-        automata.cargarAlfabeto('0');
-        automata.cargarAlfabeto('1');
-        automata.cargarAlfabeto('2');
-        automata.cargarAlfabeto('3');
-        automata.cargarAlfabeto('4');
-        automata.cargarAlfabeto('5');
-        automata.cargarAlfabeto('6');
-        automata.cargarAlfabeto('7');
-        automata.cargarAlfabeto('8');
-        automata.cargarAlfabeto('9');
 
-        automata.iniciarMatriz(0);
-        automata.iniciarMatriz(1);
-        automata.iniciarMatriz(2);
-        automata.iniciarMatriz(3);
-        automata.iniciarMatriz(4);
+        try {
+            File inputFile = new File("src/documentos/AFDJFLAPe2.jff");
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(inputFile);
+            doc.getDocumentElement().normalize();
 
-        automata.cargarEstadoInicial(0);
-        automata.cargarEstadoFinal(4);
+            //System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+            NodeList estados = doc.getElementsByTagName("state");
+            NodeList transiciones = doc.getElementsByTagName("transition");
 
-        automata.cargarMatriz('0', 0, 1);
-        automata.cargarMatriz('1', 0, 1);
-        automata.cargarMatriz('2', 0, 1);
-        automata.cargarMatriz('3', 0, 1);
-        automata.cargarMatriz('4', 0, 1);
-        automata.cargarMatriz('5', 0, 1);
-        automata.cargarMatriz('6', 0, 1);
-        automata.cargarMatriz('7', 0, 1);
-        automata.cargarMatriz('8', 0, 1);
-        automata.cargarMatriz('9', 0, 1);
+            for (int i = 0; i < estados.getLength(); i++) {
+                Node nNode = estados.item(i);
+                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element elemento = (Element) nNode;
+                    automata.iniciarMatriz(Integer.valueOf(elemento.getAttribute("id")));
+                    if (elemento.getElementsByTagName("inital") != null) {
+                        automata.cargarEstadoInicial(Integer.valueOf(elemento.getAttribute("id")));
+                        System.out.println("estado inicial: " + elemento.getAttribute("id"));
+                    }
+                    if (elemento.getElementsByTagName("final") != null) {
+                        automata.cargarEstadoFinal(Integer.valueOf(elemento.getAttribute("id")));
+                        System.out.println("estad final: " + elemento.getAttribute("id"));
+                        
+                    }
+                }
+            }
 
-        automata.cargarMatriz('a', 0, 2);
-        automata.cargarMatriz('b', 0, 2);
-        automata.cargarMatriz('c', 0, 2);
+            for (int i = 0; i < transiciones.getLength(); i++) {
+                int estadoBase = 0;
+                int estadoFin = 0;
+                char charAux = ' ';
+                Node nNode = transiciones.item(i);
+                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element elemento = (Element) nNode;
+                    estadoBase = Integer.valueOf(elemento.getElementsByTagName("from").item(0).getTextContent());
+                    estadoFin = Integer.valueOf(elemento.getElementsByTagName("to").item(0).getTextContent());
+                    //System.out.println(elemento.getElementsByTagName("read").item(0).getTextContent());
+                    charAux = elemento.getElementsByTagName("read").item(0).getTextContent().charAt(0);
+                    //System.out.println("para ir de estado "+estadoBase+" a "+estadoFin+" necesito: "+charAux);
+                    automata.cargarMatriz(charAux, estadoBase, estadoFin);
+                }
+            }
 
-        automata.cargarMatriz('0', 1, 1);
-        automata.cargarMatriz('1', 1, 1);
-        automata.cargarMatriz('2', 1, 1);
-        automata.cargarMatriz('3', 1, 1);
-        automata.cargarMatriz('4', 1, 1);
-        automata.cargarMatriz('5', 1, 1);
-        automata.cargarMatriz('6', 1, 1);
-        automata.cargarMatriz('7', 1, 1);
-        automata.cargarMatriz('8', 1, 1);
-        automata.cargarMatriz('9', 1, 1);
-
-        automata.cargarMatriz('a', 1, 2);
-        automata.cargarMatriz('b', 1, 2);
-        automata.cargarMatriz('c', 1, 2);
-
-        automata.cargarMatriz('a', 2, 2);
-        automata.cargarMatriz('b', 2, 2);
-        automata.cargarMatriz('c', 2, 2);
-
-        automata.cargarMatriz('v', 2, 3);
-
-        automata.cargarMatriz('0', 3, 4);
-        automata.cargarMatriz('1', 3, 4);
-        automata.cargarMatriz('2', 3, 4);
-        automata.cargarMatriz('3', 3, 4);
-        automata.cargarMatriz('4', 3, 4);
-        automata.cargarMatriz('5', 3, 4);
-        automata.cargarMatriz('6', 3, 4);
-        automata.cargarMatriz('7', 3, 4);
-        automata.cargarMatriz('8', 3, 4);
-        automata.cargarMatriz('9', 3, 4);
-
-        automata.cargarMatriz('0', 4, 4);
-        automata.cargarMatriz('1', 4, 4);
-        automata.cargarMatriz('2', 4, 4);
-        automata.cargarMatriz('3', 4, 4);
-        automata.cargarMatriz('4', 4, 4);
-        automata.cargarMatriz('5', 4, 4);
-        automata.cargarMatriz('6', 4, 4);
-        automata.cargarMatriz('7', 4, 4);
-        automata.cargarMatriz('8', 4, 4);
-        automata.cargarMatriz('9', 4, 4);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -213,5 +167,4 @@ public class MaquinaDeEstados {
         return array;
     }
 
-   
 }
