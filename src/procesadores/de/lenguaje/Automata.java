@@ -50,9 +50,9 @@ public class Automata {
         matriz.put(estado, new HashMap<Character, Integer>());
     }
 
-    public void cargarMatriz(Character entrada, Integer estadoActual,
-            Integer estadoFinal) {
-        matriz.get(estadoActual).put(entrada, estadoFinal);
+    public void cargarMatriz(Character entrada, Integer estadoOrigen,
+            Integer estadoDestino) {
+        matriz.get(estadoOrigen).put(entrada, estadoDestino);
     }
 
     public ArrayList<Integer> getListaEstados() {

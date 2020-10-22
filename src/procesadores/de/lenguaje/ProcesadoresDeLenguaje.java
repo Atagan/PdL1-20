@@ -5,19 +5,9 @@
  */
 package procesadores.de.lenguaje;
 
-import java.io.File;
-import java.io.IOException;
+
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.ParserConfigurationException;
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Node;
-import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
+
 
 /**
  *
@@ -31,12 +21,11 @@ public class ProcesadoresDeLenguaje {
     public static void main(String[] args) {
         // TODO code application logic here
 
-        ArrayList<String> cadenasGeneradas = new ArrayList<>();
         MaquinaDeEstados mq = new MaquinaDeEstados();
         mq.setAll();
         mq.iniciar();
-        String[] s = new String[]{"z\\", "992404aaabv76118",
-            "62bbabccaabbabv", "762ccbv0587420983433"};
+        String[] s = new String[]{"z\\", "aabcpbpbqbbmbobcqbp",
+            "abmbpbobccobmbpbmbmbcm", "abobqbqbnbbobnbnbobp"};
 
         for (int i = 0; i < s.length; i++) {
             if (mq.comprobarCadena(s[i])) {
@@ -46,21 +35,13 @@ public class ProcesadoresDeLenguaje {
             }
         }
 
-        String aux;
-        while (cadenasGeneradas.size() < 20) {
-            aux = mq.generarCadena();
-            //System.out.println(aux);
-            mq.iniciar();
-            if (!cadenasGeneradas.contains(aux)) {
-                //System.out.println("cadena: " + aux + " valida");
-                cadenasGeneradas.add(aux);
-            }
-        }
-
-        System.out.println("\n" + (cadenasGeneradas.size())
+        mq.generarCadenaRecur("", 0);
+        ArrayList<String> listaCadenas = mq.getListaCadenas();
+        
+        System.out.println("\n" + (listaCadenas.size())
                 + " Cadenas posibles que cumplen la ER:\n");
-        for (int i = 0; i < cadenasGeneradas.size(); i++) {
-            System.out.println((i + 1) + "- " + cadenasGeneradas.get(i) + "\n");
+        for (int i = 0; i < listaCadenas.size(); i++) {
+            System.out.println((i + 1) + "- " + listaCadenas.get(i) + "\n");
         }
 
     }
