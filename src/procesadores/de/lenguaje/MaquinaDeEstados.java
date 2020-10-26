@@ -11,7 +11,6 @@ import java.util.Set;
 import java.io.File;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
@@ -37,9 +36,8 @@ public class MaquinaDeEstados {
     }
 
     public void setAll() {
-
         try {
-            File inputFile = new File("src/documentos/er2.jff");
+            File inputFile = new File("src/documentos/AFDJFLAPe2.jff");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
@@ -67,7 +65,6 @@ public class MaquinaDeEstados {
                      */
                 }
             }
-
             for (int i = 0; i < transiciones.getLength(); i++) {
                 int estadoBase = 0;
                 int estadoFin = 0;
@@ -84,13 +81,11 @@ public class MaquinaDeEstados {
                     automata.cargarAlfabeto(charAux);
                 }
             }
-
             automata.cargarEstadoFinal(2);
             automata.cargarEstadoInicial(0);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     public ArrayList<Integer> getListaEstados() {
