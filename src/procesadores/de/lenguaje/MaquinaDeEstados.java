@@ -37,7 +37,7 @@ public class MaquinaDeEstados {
 
     public void setAll() {
         try {
-            File inputFile = new File("src/documentos/AFDJFLAPe2.jff");
+            File inputFile = new File("src/documentos/er42.jff");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
@@ -82,7 +82,7 @@ public class MaquinaDeEstados {
                 }
             }
             automata.cargarEstadoFinal(2);
-            automata.cargarEstadoInicial(0);
+            automata.cargarEstadoInicial(1);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -158,7 +158,7 @@ public class MaquinaDeEstados {
 
     public boolean generarCadenaRecur(String cadenaIn, int estadoActual) {
         String cadenaOut;
-        if (cadenaIn.length() == 20) {
+        if (cadenaIn.length() <= 20&&listaCadenas.size()<=19) {
             if (automata.isFinal(estadoActual)) {
                 //System.out.println("Meto la cadena: " + cadenaIn);
                 if (!listaCadenas.contains(cadenaIn)) {
@@ -167,18 +167,20 @@ public class MaquinaDeEstados {
                 return true;
             }
         } else {
-            if (cadenaIn.length() >= 20) {
+            if (cadenaIn.length() >= 19) {
                 return false;
             }
         }
-        if (listaCadenas.size() < 20) {
+        if (listaCadenas.size() <= 20) {
             for (Character siguienteChar : automata.getAlfabeto()) {
-                //System.out.println("Con la cadena: " + cadenaIn + "en el estado: " + estadoActual);
+                //System.out.println("Con la cadena: " + cadenaIn + " en el estado: " + estadoActual);
                 //System.out.println(siguienteChar);
                 if (automata.getMatriz().get(estadoActual).get(siguienteChar) != null) {
                     int estadoNuevo = automata.getMatriz().get(estadoActual).get(siguienteChar);
                     cadenaOut = cadenaIn.concat(String.valueOf(siguienteChar));
                     generarCadenaRecur(cadenaOut, estadoNuevo);
+                } else {
+                    //System.out.println("Pero no he podido meterla");
                 }
             }
         }
@@ -196,6 +198,10 @@ public class MaquinaDeEstados {
             array[i++] = (char) x;
         }
         return array;
+    }
+
+    public int getEstadoInicial() {
+        return automata.getEstadoInicial();
     }
 
 }

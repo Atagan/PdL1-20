@@ -15,7 +15,7 @@ public class Automata {
 
     private ArrayList<Character> alfabeto = new ArrayList<Character>();
     private ArrayList<Integer> listaEstados = new ArrayList<Integer>();
-    private ArrayList<Integer> listaEstadosIniciales = new ArrayList<Integer>();
+    private int estadoInicial;
     private ArrayList<Integer> listaEstadosFinales = new ArrayList<Integer>();
     private HashMap<Integer, HashMap<Character, Integer>> matriz = new HashMap<Integer, HashMap<Character, Integer>>();
 
@@ -35,15 +35,15 @@ public class Automata {
     }
 
     public void cargarEstadoInicial(Integer estado) {
-        listaEstadosIniciales.add(estado);
+        estadoInicial=estado;
     }
 
     public void cargarEstadoFinal(Integer estado) {
         listaEstadosFinales.add(estado);
     }
 
-    public Integer getEstadoInicial(){
-        return listaEstadosIniciales.get(0);
+    public int getEstadoInicial(){
+        return estadoInicial;
     }
     
     public void iniciarMatriz(Integer estado) {

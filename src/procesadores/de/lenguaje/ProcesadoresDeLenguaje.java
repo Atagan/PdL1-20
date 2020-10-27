@@ -35,11 +35,11 @@ public class ProcesadoresDeLenguaje {
             }
         }
 
-        mq.generarCadenaRecur("", 0);
+        mq.generarCadenaRecur("", mq.getEstadoInicial());
         ArrayList<String> listaCadenas = mq.getListaCadenas();
         
         System.out.println("\n" + (listaCadenas.size())
-                + " Cadenas posibles que cumplen la ER:\n");
+                + " Cadenas posibles que cumplen la ER (ordenadas decrecientemente en longitud empezando en 20):\n");
         for (int i = 0; i < listaCadenas.size(); i++) {
             System.out.println((i + 1) + "- " + listaCadenas.get(i) + "\n");
         }
