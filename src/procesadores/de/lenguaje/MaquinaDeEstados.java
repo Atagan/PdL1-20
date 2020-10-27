@@ -175,7 +175,6 @@ public class MaquinaDeEstados {
             for (Character siguienteChar : automata.getAlfabeto()) {
                 //System.out.println("Con la cadena: " + cadenaIn + "en el estado: " + estadoActual);
                 //System.out.println(siguienteChar);
-
                 if (automata.getMatriz().get(estadoActual).get(siguienteChar) != null) {
                     int estadoNuevo = automata.getMatriz().get(estadoActual).get(siguienteChar);
                     cadenaOut = cadenaIn.concat(String.valueOf(siguienteChar));
